@@ -222,3 +222,65 @@ public void UpdateCustomersBalanceByInvoices(List<Invoice> invoices)
     dbContext.SaveChanges();
 }
 ```
+__4. Implement the following method using Entity Framework, making sure your query is
+efficient in all the cases (when all the parameters are set, when some of them are or
+when none of them are). If a “filter” is not set it means that it will not apply any filtering
+over that field (no ids provided for customer ids it means we don’t want to filter by
+customer).__
+
+**Solution**
+Para dar solución, supongamos que las entidades, el contexto ya estan creadas y  el **OrderDTO** contiene las siguientes propiedades
+```csharp
+public clas OrderDTO
+{
+  public int OrderId { get; set; }
+  public string CustomerName { get; set; }
+  public DateTime OrderDate { get; set; }
+}
+```
+
+```csharp
+public async Task<OrderDTO> GetOrders(DateTime dateFrom, DateTime dateTo, List<int> customerIds, List<int> statusIds, bool? isActive)
+{
+  // your implementation
+  try
+  {
+    OrderDTO orderDTO = new OrderDTO();
+    var query = modelContext.Orders.AsQueryable();
+    if(dateFrom != DateTime.MinValue)
+    {
+      query = query.Where(o=> o.OrderDate >= dateFrom);
+    }
+  
+    if(dateTo != DateTime.MinValue)
+    {
+      query = query.Where(o=> o.OrderDate <= dateTo);
+    }
+  
+    if(customerIds != null && customerIds.Count > 0)
+    {
+      query = query.Where(o=> customerIds.Contains(o.CustomerId));
+    }
+  
+    if(statusIds != null && statusIds.Count > 0)
+    {
+      query = query.Where(o=> statusIds.Contains(o.statusId));
+    }
+  
+    if(isActive != null)
+    {
+      query = query.Where(o=> o.IsActive == isActive);
+    }
+    orderDTO = query.Select(o=> new OrderDTO(){
+      OrderId = o.OrderId,
+      CustomerName = o.CustomerName,
+      OrderDate = o.OrderDate
+    }).FirstOrDefault();
+  }
+  catch(Exception ex)
+  {
+    throw;
+  }
+  return orderDTO;
+}
+```
