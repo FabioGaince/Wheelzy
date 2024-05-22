@@ -192,4 +192,33 @@ Implementaria :
   - Uso del cache de la información mediante Redis.
 
 
- 
+ __3. Analyze the following method and make changes to make it better. Explain your
+changes.__
+```csharp
+public void UpdateCustomersBalanceByInvoices(List<Invoice> invoices)
+{
+  foreach (var invoice in invoices)
+  {
+    var customer = dbContext.Customers.SingleOrDefault(invoice.CustomerId.Value);
+    customer.Balance -= invoice.Total;
+    dbContext.SaveChanges();
+  }
+}
+```
+**3.1 Solution:**
+```csharp
+public void UpdateCustomersBalanceByInvoices(List<Invoice> invoices)
+{
+  foreach (var invoice in invoices)
+  {
+    var customerId = invoice.CustomerId;
+    if(customerId != null)
+    {
+      var customer = dbContext.Customers.SingleOrDefault(c=> c.CustomerId == customerId);
+      if(customer != null)
+        customer.Balance -= invoice.Total;
+    }
+  }
+    dbContext.SaveChanges();
+}
+```
