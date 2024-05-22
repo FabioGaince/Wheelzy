@@ -231,7 +231,7 @@ customer).__
 **Solution**
 Para dar solución, supongamos que las entidades, el contexto ya estan creadas y  el **OrderDTO** contiene las siguientes propiedades
 ```csharp
-public clas OrderDTO
+public class OrderDTO
 {
   public int OrderId { get; set; }
   public string CustomerName { get; set; }
