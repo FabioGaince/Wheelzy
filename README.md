@@ -183,3 +183,13 @@ public class CarSalesInformation
     }
 }
 ```
+__2. What would you do if you had data that doesn’t change often but it’s used pretty much all the time?__
+
+Implementaria :
+  - La optimatización de las consultas existentes para que no obtengan información innecesaria.
+  - La creación de indices a las tablas involucradas para mejorar el rendimiento en la respuesta de la consulta.
+  - La creación de una base de datos no relacional como __Mongo DB__ con el fin de tener la información mas detallada en una collecion.
+  - Uso del cache de la información mediante Redis.
+
+
+ 
