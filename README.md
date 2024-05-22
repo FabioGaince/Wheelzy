@@ -284,3 +284,17 @@ public async Task<OrderDTO> GetOrders(DateTime dateFrom, DateTime dateTo, List<i
   return orderDTO;
 }
 ```
+
+__5. Bill, from the QA Department, assigned you a high priority task indicating there’s a bug when someone changes the status from “Accepted” to “Picked Up”.
+Define how you would proceed, step by step, until you create the Pull Request.__
+
+Procederia de la siguiente forma:
+- Crear una rama del repositorio de codigo fuente para darle solución al bug.
+- Analizar la parte del codigo que tiene relación con la funcionalidad involucrada.
+- Revisaria el log de la aplicación si llega a contar con uno implementado, con el fin de obtener mas detalle.
+- Intentar reproducir el escenario del error.
+- Realizar una depuración del codigo con el fin de ver el flujo de ejecución y detectar la posible causa.
+- Realizar la solución del bug.
+- Realizar pruebas
+- Documentar la solución del bug
+- Crear el Pull Request con la rama que contiene la solución
